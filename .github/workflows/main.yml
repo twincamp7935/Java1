@@ -1,0 +1,125 @@
+name: BUILD_NT_NM_DE
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '55 */5 * * *'
+    
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - name: 🛎 Check out main
+        uses: actions/checkout@master
+        with:
+          repository: ${{ secrets.MAIN_BIN_PATH }}
+          token: ${{ secrets.REPO_TOKEN }}
+          fetch-depth: 1
+      - name: make dir set bin
+        run: |
+          mkdir TB1_REPO
+          7z  x -p${{ secrets.MAIN_BIN_ZIP_PASS }} bin.7z.001
+          ren TB1_MAIN_TEMP TB1_MAIN
+      - name: debug dir
+        run: |
+          cd TB1_MAIN
+          ls
+      - name: SC
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SetupConfig NT_NM
+      - name: SC2
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SetupConfig NT_NM_DESC
+      - name: GP
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar GIT_Pull
+      - name: DPR
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar DownloadPagesRunner
+      - name: ZBR
+        run: |
+          cd TB1_MAIN
+          ./100_ZipBatchRun.bat
+      - name: SZBM
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SplitZipsBatchMake
+      - name: SBR
+        run: |
+          cd TB1_MAIN
+          ./270_SplitBatchRun.bat
+      - name: SIM
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SplitImagesMake
+      - name: CZAIR
+        run: |
+          cd TB1_MAIN
+          ./360_combineZipAndImageRun.bat
+      - name: T1-1
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar TisUpload1-1
+      - name: T2-2
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar TisUpload2-2
+      - name: T1-3
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar TisUpload1-3
+      - name: CUF
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar CheckUploadFiles
+      - name: UGJI
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar UpdateGitJsonInfo
+      - name: CC
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar CompressCover
+      - name: CCR
+        run: |
+          cd TB1_MAIN
+          ./585_CoverCompressRun.bat
+      - name: CCDF
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar CompressCoverDelFile
+      - name: GZM
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar GitZipMake
+      - name: GZMR
+        run: |
+          cd TB1_MAIN
+          ./650_GitZipMakeRun.bat
+      - name: GU
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar GitUpdate
+      - name: DBU
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar DBUpdate
+      - name: UDP
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar UDP ${{ secrets.D_GI }} ${{ secrets.D_GP }} ${{ secrets.D_REPO_NAME }}
+      - name: JAR
+        run: |
+          cd TB1_REPO
+          cd ${{ secrets.D_REPO_NAME }}
+          cd src
+          javac project/*.java
+          jar cfm ../RUN.jar project/manifest.txt project/*.class          
+      - name: PDP
+        run: |
+          cd TB1_MAIN
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar PDP ${{ secrets.D_GI }} ${{ secrets.D_GP }} ${{ secrets.D_REPO_NAME }}
