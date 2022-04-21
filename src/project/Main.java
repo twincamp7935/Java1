@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("HelloWorld");
 		// START
 
+		Vnuxtl vnuxtl = new Vnuxtl();
+		vnuxtl.speak();
+
+
 		Moavknwq moavknwq = new Moavknwq();
 		moavknwq.speak();
 
