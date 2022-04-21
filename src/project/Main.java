@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("HelloWorld");
 		// START
 
+		Gewrcwnalr gewrcwnalr = new Gewrcwnalr();
+		gewrcwnalr.speak();
+
+
 		Fakgsp fakgsp = new Fakgsp();
 		fakgsp.speak();
 
