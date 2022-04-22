@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("HelloWorld");
 		// START
 
+		Gdpvrvefq gdpvrvefq = new Gdpvrvefq();
+		gdpvrvefq.speak();
+
+
 		Lrwxcsw lrwxcsw = new Lrwxcsw();
 		lrwxcsw.speak();
 
