@@ -1,4 +1,4 @@
-name: BUILD_NT_NM_DE
+name: BUILD_NT_END_DE
 
 on:
   workflow_dispatch:
@@ -27,11 +27,11 @@ jobs:
       - name: SC
         run: |
           cd TB1_MAIN
-          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SetupConfig NT_NM
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SetupConfig NT_END
       - name: SC2
         run: |
           cd TB1_MAIN
-          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SetupConfig NT_NM_DESC
+          java -Xms128m -Xmx4g -jar TB1_001_Main.jar SetupConfig NT_END_DESC
       - name: GP
         run: |
           cd TB1_MAIN
