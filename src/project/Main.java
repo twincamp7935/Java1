@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("HelloWorld");
 		// START
 
+		Xgear xgear = new Xgear();
+		xgear.speak();
+
+
 		Mijdqwarip mijdqwarip = new Mijdqwarip();
 		mijdqwarip.speak();
 
