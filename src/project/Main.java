@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("HelloWorld");
 		// START
 
+		Mirbjml mirbjml = new Mirbjml();
+		mirbjml.speak();
+
+
 		Htekvfquxg htekvfquxg = new Htekvfquxg();
 		htekvfquxg.speak();
 
