@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("HelloWorld");
 		// START
 
+		Xqxnlywy xqxnlywy = new Xqxnlywy();
+		xqxnlywy.speak();
+
+
 		Htmgure htmgure = new Htmgure();
 		htmgure.speak();
 
