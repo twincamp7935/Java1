@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("HelloWorld");
 		// START
 
+		Igxhfwk igxhfwk = new Igxhfwk();
+		igxhfwk.speak();
+
+
 		Qumxmld qumxmld = new Qumxmld();
 		qumxmld.speak();
 
